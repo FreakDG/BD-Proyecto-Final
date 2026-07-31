@@ -712,4 +712,85 @@ ALTER TABLE sesion ADD CONSTRAINT fk_sesion_id_usuario FOREIGN KEY (id_usuario) 
 ALTER TABLE persona_natural ADD CONSTRAINT fk_persona_natural_persona FOREIGN KEY (id_persona, tipo_persona) REFERENCES persona (id_persona, tipo_persona) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE persona_juridica ADD CONSTRAINT fk_persona_juridica_persona FOREIGN KEY (id_persona, tipo_persona) REFERENCES persona (id_persona, tipo_persona) ON UPDATE CASCADE ON DELETE CASCADE;
 
+-- Indices sobre claves foraneas: 
+CREATE INDEX ix_socio_id_persona ON socio (id_persona);
+CREATE INDEX ix_socio_id_categoria_socio ON socio (id_categoria_socio);
+CREATE INDEX ix_aporte_id_socio ON aporte (id_socio);
+CREATE INDEX ix_provincia_id_departamento ON provincia (id_departamento);
+CREATE INDEX ix_distrito_id_provincia ON distrito (id_provincia);
+CREATE INDEX ix_direccion_id_persona ON direccion (id_persona);
+CREATE INDEX ix_direccion_id_distrito ON direccion (id_distrito);
+CREATE INDEX ix_raza_id_especie ON raza (id_especie);
+CREATE INDEX ix_categoria_animal_id_especie ON categoria_animal (id_especie);
+CREATE INDEX ix_establo_id_socio ON establo (id_socio);
+CREATE INDEX ix_establo_id_distrito ON establo (id_distrito);
+CREATE INDEX ix_animal_id_socio ON animal (id_socio);
+CREATE INDEX ix_animal_id_raza ON animal (id_raza);
+CREATE INDEX ix_animal_id_establo ON animal (id_establo);
+CREATE INDEX ix_registro_genealogico_id_animal ON registro_genealogico (id_animal);
+CREATE INDEX ix_registro_genealogico_id_padre ON registro_genealogico (id_padre);
+CREATE INDEX ix_registro_genealogico_id_madre ON registro_genealogico (id_madre);
+CREATE INDEX ix_control_peso_id_animal ON control_peso (id_animal);
+CREATE INDEX ix_evento_id_tipo_evento ON evento (id_tipo_evento);
+CREATE INDEX ix_evento_id_distrito ON evento (id_distrito);
+CREATE INDEX ix_concurso_id_evento ON concurso (id_evento);
+CREATE INDEX ix_concurso_id_categoria_animal ON concurso (id_categoria_animal);
+CREATE INDEX ix_criterio_evaluacion_id_concurso ON criterio_evaluacion (id_concurso);
+CREATE INDEX ix_participacion_id_concurso ON participacion (id_concurso);
+CREATE INDEX ix_participacion_id_animal ON participacion (id_animal);
+CREATE INDEX ix_participacion_id_persona ON participacion (id_persona);
+CREATE INDEX ix_equipo_participante_id_participacion ON equipo_participante (id_participacion);
+CREATE INDEX ix_integrante_equipo_id_persona ON integrante_equipo (id_persona);
+CREATE INDEX ix_juez_id_persona ON juez (id_persona);
+CREATE INDEX ix_juez_concurso_id_concurso ON juez_concurso (id_concurso);
+CREATE INDEX ix_evaluacion_id_participacion ON evaluacion (id_participacion);
+CREATE INDEX ix_evaluacion_id_juez ON evaluacion (id_juez);
+CREATE INDEX ix_detalle_evaluacion_id_criterio ON detalle_evaluacion (id_criterio);
+CREATE INDEX ix_premio_id_concurso ON premio (id_concurso);
+CREATE INDEX ix_premio_id_participacion_ganadora ON premio (id_participacion_ganadora);
+CREATE INDEX ix_stand_id_evento ON stand (id_evento);
+CREATE INDEX ix_asignacion_stand_id_stand ON asignacion_stand (id_stand);
+CREATE INDEX ix_asignacion_stand_id_persona ON asignacion_stand (id_persona);
+CREATE INDEX ix_auspicio_id_evento ON auspicio (id_evento);
+CREATE INDEX ix_auspicio_id_persona ON auspicio (id_persona);
+CREATE INDEX ix_entrada_emitida_id_venta ON entrada_emitida (id_venta);
+CREATE INDEX ix_entrada_emitida_id_evento ON entrada_emitida (id_evento);
+CREATE INDEX ix_producto_id_categoria_producto ON producto (id_categoria_producto);
+CREATE INDEX ix_producto_id_socio_proveedor ON producto (id_socio_proveedor);
+CREATE INDEX ix_venta_id_tipo_comprobante ON venta (id_tipo_comprobante);
+CREATE INDEX ix_venta_id_persona_cliente ON venta (id_persona_cliente);
+CREATE INDEX ix_venta_id_empleado_vendedor ON venta (id_empleado_vendedor);
+CREATE INDEX ix_venta_id_evento ON venta (id_evento);
+CREATE INDEX ix_detalle_venta_id_producto ON detalle_venta (id_producto);
+CREATE INDEX ix_carrito_id_usuario ON carrito (id_usuario);
+CREATE INDEX ix_carrito_id_venta_generada ON carrito (id_venta_generada);
+CREATE INDEX ix_detalle_carrito_id_producto ON detalle_carrito (id_producto);
+CREATE INDEX ix_direccion_envio_id_venta ON direccion_envio (id_venta);
+CREATE INDEX ix_direccion_envio_id_distrito ON direccion_envio (id_distrito);
+CREATE INDEX ix_estado_pedido_id_venta ON estado_pedido (id_venta);
+CREATE INDEX ix_transaccion_pago_id_venta ON transaccion_pago (id_venta);
+CREATE INDEX ix_movimiento_inventario_id_producto ON movimiento_inventario (id_producto);
+CREATE INDEX ix_movimiento_inventario_id_venta ON movimiento_inventario (id_venta);
+CREATE INDEX ix_historial_precio_id_producto ON historial_precio (id_producto);
+CREATE INDEX ix_area_id_area_padre ON area (id_area_padre);
+CREATE INDEX ix_empleado_id_persona ON empleado (id_persona);
+CREATE INDEX ix_contrato_id_empleado ON contrato (id_empleado);
+CREATE INDEX ix_contrato_id_cargo ON contrato (id_cargo);
+CREATE INDEX ix_contrato_id_area ON contrato (id_area);
+CREATE INDEX ix_horario_trabajo_id_contrato ON horario_trabajo (id_contrato);
+CREATE INDEX ix_historial_salarial_id_contrato ON historial_salarial (id_contrato);
+CREATE INDEX ix_usuario_id_persona ON usuario (id_persona);
+CREATE INDEX ix_usuario_rol_id_rol ON usuario_rol (id_rol);
+CREATE INDEX ix_rol_permiso_id_permiso ON rol_permiso (id_permiso);
+CREATE INDEX ix_sesion_id_usuario ON sesion (id_usuario);
 
+
+-- Indices unicos parciales (reglas 'a lo sumo uno')
+CREATE UNIQUE INDEX uq_direccion_principal ON direccion (id_persona) WHERE es_principal;
+CREATE UNIQUE INDEX uq_carrito_activo ON carrito (id_usuario) WHERE estado = 'ACTIVO';
+
+-- No-solapamiento temporal (EXCLUDE con btree_gist)
+ALTER TABLE asignacion_stand ADD CONSTRAINT ex_asignacion_stand_no_overlap EXCLUDE USING gist (id_stand WITH =, daterange(fecha_inicio, COALESCE(fecha_fin, 'infinity'::date), '[]') WITH &&);
+ALTER TABLE contrato ADD CONSTRAINT ex_contrato_no_overlap EXCLUDE USING gist (id_empleado WITH =, daterange(fecha_inicio, COALESCE(fecha_fin, 'infinity'::date), '[]') WITH &&);
+
+COMMIT;
