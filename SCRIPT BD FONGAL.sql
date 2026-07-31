@@ -630,3 +630,86 @@ CREATE TABLE sesion (
     CONSTRAINT uq_sesion_token_hash UNIQUE (token_hash),
     CONSTRAINT ck_sesion_1 CHECK (origen IN ('BACKOFFICE', 'FRONTOFFICE'))
 );
+
+-- CLAVES FORANEAS:
+ALTER TABLE socio ADD CONSTRAINT fk_socio_id_persona FOREIGN KEY (id_persona) REFERENCES persona (id_persona) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE socio ADD CONSTRAINT fk_socio_id_categoria_socio FOREIGN KEY (id_categoria_socio) REFERENCES categoria_socio (id_categoria_socio) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE aporte ADD CONSTRAINT fk_aporte_id_socio FOREIGN KEY (id_socio) REFERENCES socio (id_socio) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE provincia ADD CONSTRAINT fk_provincia_id_departamento FOREIGN KEY (id_departamento) REFERENCES departamento (id_departamento) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE distrito ADD CONSTRAINT fk_distrito_id_provincia FOREIGN KEY (id_provincia) REFERENCES provincia (id_provincia) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE direccion ADD CONSTRAINT fk_direccion_id_persona FOREIGN KEY (id_persona) REFERENCES persona (id_persona) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE direccion ADD CONSTRAINT fk_direccion_id_distrito FOREIGN KEY (id_distrito) REFERENCES distrito (id_distrito) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE raza ADD CONSTRAINT fk_raza_id_especie FOREIGN KEY (id_especie) REFERENCES especie (id_especie) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE categoria_animal ADD CONSTRAINT fk_categoria_animal_id_especie FOREIGN KEY (id_especie) REFERENCES especie (id_especie) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE establo ADD CONSTRAINT fk_establo_id_socio FOREIGN KEY (id_socio) REFERENCES socio (id_socio) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE establo ADD CONSTRAINT fk_establo_id_distrito FOREIGN KEY (id_distrito) REFERENCES distrito (id_distrito) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE animal ADD CONSTRAINT fk_animal_id_socio FOREIGN KEY (id_socio) REFERENCES socio (id_socio) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE animal ADD CONSTRAINT fk_animal_id_raza FOREIGN KEY (id_raza) REFERENCES raza (id_raza) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE animal ADD CONSTRAINT fk_animal_id_establo FOREIGN KEY (id_establo) REFERENCES establo (id_establo) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE registro_genealogico ADD CONSTRAINT fk_registro_genealogico_id_animal FOREIGN KEY (id_animal) REFERENCES animal (id_animal) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE registro_genealogico ADD CONSTRAINT fk_registro_genealogico_id_padre FOREIGN KEY (id_padre) REFERENCES animal (id_animal) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE registro_genealogico ADD CONSTRAINT fk_registro_genealogico_id_madre FOREIGN KEY (id_madre) REFERENCES animal (id_animal) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE control_peso ADD CONSTRAINT fk_control_peso_id_animal FOREIGN KEY (id_animal) REFERENCES animal (id_animal) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE evento ADD CONSTRAINT fk_evento_id_tipo_evento FOREIGN KEY (id_tipo_evento) REFERENCES tipo_evento (id_tipo_evento) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE evento ADD CONSTRAINT fk_evento_id_distrito FOREIGN KEY (id_distrito) REFERENCES distrito (id_distrito) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE concurso ADD CONSTRAINT fk_concurso_id_evento FOREIGN KEY (id_evento) REFERENCES evento (id_evento) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE concurso ADD CONSTRAINT fk_concurso_id_categoria_animal FOREIGN KEY (id_categoria_animal) REFERENCES categoria_animal (id_categoria_animal) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE criterio_evaluacion ADD CONSTRAINT fk_criterio_evaluacion_id_concurso FOREIGN KEY (id_concurso) REFERENCES concurso (id_concurso) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE participacion ADD CONSTRAINT fk_participacion_id_concurso FOREIGN KEY (id_concurso) REFERENCES concurso (id_concurso) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE participacion ADD CONSTRAINT fk_participacion_id_animal FOREIGN KEY (id_animal) REFERENCES animal (id_animal) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE participacion ADD CONSTRAINT fk_participacion_id_persona FOREIGN KEY (id_persona) REFERENCES persona (id_persona) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE equipo_participante ADD CONSTRAINT fk_equipo_participante_id_participacion FOREIGN KEY (id_participacion) REFERENCES participacion (id_participacion) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE integrante_equipo ADD CONSTRAINT fk_integrante_equipo_id_equipo FOREIGN KEY (id_equipo) REFERENCES equipo_participante (id_equipo) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE integrante_equipo ADD CONSTRAINT fk_integrante_equipo_id_persona FOREIGN KEY (id_persona) REFERENCES persona_natural (id_persona) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE juez ADD CONSTRAINT fk_juez_id_persona FOREIGN KEY (id_persona) REFERENCES persona (id_persona) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE juez_concurso ADD CONSTRAINT fk_juez_concurso_id_juez FOREIGN KEY (id_juez) REFERENCES juez (id_juez) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE juez_concurso ADD CONSTRAINT fk_juez_concurso_id_concurso FOREIGN KEY (id_concurso) REFERENCES concurso (id_concurso) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE evaluacion ADD CONSTRAINT fk_evaluacion_id_participacion FOREIGN KEY (id_participacion) REFERENCES participacion (id_participacion) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE evaluacion ADD CONSTRAINT fk_evaluacion_id_juez FOREIGN KEY (id_juez) REFERENCES juez (id_juez) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE detalle_evaluacion ADD CONSTRAINT fk_detalle_evaluacion_id_evaluacion FOREIGN KEY (id_evaluacion) REFERENCES evaluacion (id_evaluacion) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE detalle_evaluacion ADD CONSTRAINT fk_detalle_evaluacion_id_criterio FOREIGN KEY (id_criterio) REFERENCES criterio_evaluacion (id_criterio) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE premio ADD CONSTRAINT fk_premio_id_concurso FOREIGN KEY (id_concurso) REFERENCES concurso (id_concurso) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE premio ADD CONSTRAINT fk_premio_id_participacion_ganadora FOREIGN KEY (id_participacion_ganadora) REFERENCES participacion (id_participacion) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE stand ADD CONSTRAINT fk_stand_id_evento FOREIGN KEY (id_evento) REFERENCES evento (id_evento) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE asignacion_stand ADD CONSTRAINT fk_asignacion_stand_id_stand FOREIGN KEY (id_stand) REFERENCES stand (id_stand) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE asignacion_stand ADD CONSTRAINT fk_asignacion_stand_id_persona FOREIGN KEY (id_persona) REFERENCES persona (id_persona) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE auspicio ADD CONSTRAINT fk_auspicio_id_evento FOREIGN KEY (id_evento) REFERENCES evento (id_evento) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE auspicio ADD CONSTRAINT fk_auspicio_id_persona FOREIGN KEY (id_persona) REFERENCES persona (id_persona) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE entrada_emitida ADD CONSTRAINT fk_entrada_emitida_id_venta FOREIGN KEY (id_venta) REFERENCES venta (id_venta) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE entrada_emitida ADD CONSTRAINT fk_entrada_emitida_id_evento FOREIGN KEY (id_evento) REFERENCES evento (id_evento) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE producto ADD CONSTRAINT fk_producto_id_categoria_producto FOREIGN KEY (id_categoria_producto) REFERENCES categoria_producto (id_categoria_producto) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE producto ADD CONSTRAINT fk_producto_id_socio_proveedor FOREIGN KEY (id_socio_proveedor) REFERENCES socio (id_socio) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE venta ADD CONSTRAINT fk_venta_id_tipo_comprobante FOREIGN KEY (id_tipo_comprobante) REFERENCES tipo_comprobante (id_tipo_comprobante) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE venta ADD CONSTRAINT fk_venta_id_persona_cliente FOREIGN KEY (id_persona_cliente) REFERENCES persona (id_persona) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE venta ADD CONSTRAINT fk_venta_id_empleado_vendedor FOREIGN KEY (id_empleado_vendedor) REFERENCES empleado (id_empleado) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE venta ADD CONSTRAINT fk_venta_id_evento FOREIGN KEY (id_evento) REFERENCES evento (id_evento) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE detalle_venta ADD CONSTRAINT fk_detalle_venta_id_venta FOREIGN KEY (id_venta) REFERENCES venta (id_venta) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE detalle_venta ADD CONSTRAINT fk_detalle_venta_id_producto FOREIGN KEY (id_producto) REFERENCES producto (id_producto) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE carrito ADD CONSTRAINT fk_carrito_id_usuario FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE carrito ADD CONSTRAINT fk_carrito_id_venta_generada FOREIGN KEY (id_venta_generada) REFERENCES venta (id_venta) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE detalle_carrito ADD CONSTRAINT fk_detalle_carrito_id_producto FOREIGN KEY (id_producto) REFERENCES producto (id_producto) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE direccion_envio ADD CONSTRAINT fk_direccion_envio_id_venta FOREIGN KEY (id_venta) REFERENCES venta (id_venta) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE direccion_envio ADD CONSTRAINT fk_direccion_envio_id_distrito FOREIGN KEY (id_distrito) REFERENCES distrito (id_distrito) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE estado_pedido ADD CONSTRAINT fk_estado_pedido_id_venta FOREIGN KEY (id_venta) REFERENCES venta (id_venta) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE transaccion_pago ADD CONSTRAINT fk_transaccion_pago_id_venta FOREIGN KEY (id_venta) REFERENCES venta (id_venta) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE movimiento_inventario ADD CONSTRAINT fk_movimiento_inventario_id_producto FOREIGN KEY (id_producto) REFERENCES producto (id_producto) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE movimiento_inventario ADD CONSTRAINT fk_movimiento_inventario_id_venta FOREIGN KEY (id_venta) REFERENCES venta (id_venta) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE historial_precio ADD CONSTRAINT fk_historial_precio_id_producto FOREIGN KEY (id_producto) REFERENCES producto (id_producto) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE area ADD CONSTRAINT fk_area_id_area_padre FOREIGN KEY (id_area_padre) REFERENCES area (id_area) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE empleado ADD CONSTRAINT fk_empleado_id_persona FOREIGN KEY (id_persona) REFERENCES persona (id_persona) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE contrato ADD CONSTRAINT fk_contrato_id_empleado FOREIGN KEY (id_empleado) REFERENCES empleado (id_empleado) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE contrato ADD CONSTRAINT fk_contrato_id_cargo FOREIGN KEY (id_cargo) REFERENCES cargo (id_cargo) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE contrato ADD CONSTRAINT fk_contrato_id_area FOREIGN KEY (id_area) REFERENCES area (id_area) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE horario_trabajo ADD CONSTRAINT fk_horario_trabajo_id_contrato FOREIGN KEY (id_contrato) REFERENCES contrato (id_contrato) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE historial_salarial ADD CONSTRAINT fk_historial_salarial_id_contrato FOREIGN KEY (id_contrato) REFERENCES contrato (id_contrato) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE usuario ADD CONSTRAINT fk_usuario_id_persona FOREIGN KEY (id_persona) REFERENCES persona (id_persona) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE usuario_rol ADD CONSTRAINT fk_usuario_rol_id_usuario FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE usuario_rol ADD CONSTRAINT fk_usuario_rol_id_rol FOREIGN KEY (id_rol) REFERENCES rol (id_rol) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE rol_permiso ADD CONSTRAINT fk_rol_permiso_id_rol FOREIGN KEY (id_rol) REFERENCES rol (id_rol) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE rol_permiso ADD CONSTRAINT fk_rol_permiso_id_permiso FOREIGN KEY (id_permiso) REFERENCES permiso (id_permiso) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE sesion ADD CONSTRAINT fk_sesion_id_usuario FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON UPDATE CASCADE ON DELETE RESTRICT;
+-- FK compuesta con discriminador (garantiza disyuncion del subtipo)
+ALTER TABLE persona_natural ADD CONSTRAINT fk_persona_natural_persona FOREIGN KEY (id_persona, tipo_persona) REFERENCES persona (id_persona, tipo_persona) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE persona_juridica ADD CONSTRAINT fk_persona_juridica_persona FOREIGN KEY (id_persona, tipo_persona) REFERENCES persona (id_persona, tipo_persona) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
