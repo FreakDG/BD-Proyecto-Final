@@ -360,3 +360,273 @@ CREATE TABLE entrada_emitida (
     fecha_uso timestamptz,
     fecha_registro timestamptz NOT NULL DEFAULT now()
 );
+
+-- MODULO 4: Comercial y Ventas
+CREATE TABLE categoria_producto (
+    id_categoria_producto integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nombre varchar(120) NOT NULL,
+    descripcion text,
+    fecha_registro timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE TABLE producto (
+    id_producto integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_categoria_producto integer NOT NULL,
+    id_socio_proveedor integer,
+    codigo_sku varchar(30) NOT NULL,
+    nombre varchar(120) NOT NULL,
+    tipo_item varchar(30),
+    unidad_medida varchar(30),
+    requiere_envio boolean DEFAULT false,
+    precio_unitario numeric(12,2) NOT NULL,
+    stock_actual integer,
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT uq_producto_codigo_sku UNIQUE (codigo_sku),
+    CONSTRAINT ck_producto_1 CHECK (precio_unitario >= 0),
+    CONSTRAINT ck_producto_2 CHECK (tipo_item IN ('BIEN', 'SERVICIO', 'ENTRADA')),
+    CONSTRAINT ck_producto_3 CHECK (unidad_medida IN ('UNIDAD', 'KILOGRAMO', 'LITRO', 'SERVICIO'))
+);
+
+CREATE TABLE tipo_comprobante (
+    id_tipo_comprobante integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    codigo_sunat varchar(4) NOT NULL,
+    nombre varchar(120) NOT NULL,
+    requiere_ruc boolean DEFAULT false,
+    fecha_registro timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE TABLE venta (
+    id_venta integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_tipo_comprobante integer NOT NULL,
+    id_persona_cliente integer NOT NULL,
+    id_empleado_vendedor integer,
+    id_evento integer,
+    serie varchar(6) NOT NULL,
+    correlativo varchar(10) NOT NULL,
+    canal_venta varchar(30),
+    fecha_emision timestamptz NOT NULL,
+    subtotal numeric(12,2) NOT NULL,
+    igv numeric(12,2) NOT NULL,
+    total numeric(12,2) NOT NULL,
+    estado_sunat varchar(30),
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT uq_venta_id_tipo_comprobante_serie_correlativo UNIQUE (id_tipo_comprobante, serie, correlativo),
+    CONSTRAINT ck_venta_1 CHECK (subtotal >= 0),
+    CONSTRAINT ck_venta_2 CHECK (igv >= 0),
+    CONSTRAINT ck_venta_3 CHECK (total >= 0),
+    CONSTRAINT ck_venta_4 CHECK (canal_venta IN ('PRESENCIAL', 'WEB')),
+    CONSTRAINT ck_venta_5 CHECK (estado_sunat IN ('PENDIENTE', 'EMITIDO', 'ACEPTADO', 'RECHAZADO', 'ANULADO'))
+);
+
+CREATE TABLE detalle_venta (
+    id_venta integer NOT NULL,
+    id_producto integer NOT NULL,
+    cantidad integer NOT NULL,
+    precio_unitario numeric(12,2) NOT NULL,
+    subtotal_linea numeric(12,2),
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT pk_detalle_venta PRIMARY KEY (id_venta, id_producto),
+    CONSTRAINT ck_detalle_venta_1 CHECK (precio_unitario >= 0),
+    CONSTRAINT ck_detalle_venta_2 CHECK (subtotal_linea >= 0),
+    CONSTRAINT ck_detalle_venta_3 CHECK (cantidad > 0)
+);
+
+CREATE TABLE carrito (
+    id_carrito integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_usuario integer NOT NULL,
+    id_venta_generada integer,
+    fecha_creacion timestamptz DEFAULT now() NOT NULL,
+    estado varchar(30) NOT NULL,
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT ck_carrito_1 CHECK (estado IN ('ACTIVO', 'CONVERTIDO', 'ABANDONADO'))
+);
+
+CREATE TABLE detalle_carrito (
+    id_carrito integer NOT NULL,
+    id_producto integer NOT NULL,
+    cantidad integer NOT NULL,
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT pk_detalle_carrito PRIMARY KEY (id_carrito, id_producto),
+    CONSTRAINT ck_detalle_carrito_1 CHECK (cantidad > 0)
+);
+
+CREATE TABLE direccion_envio (
+    id_direccion_envio integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_venta integer NOT NULL,
+    id_distrito integer NOT NULL,
+    direccion_linea text,
+    destinatario varchar(120),
+    telefono_contacto varchar(20),
+    fecha_registro timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE TABLE estado_pedido (
+    id_estado_pedido integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_venta integer NOT NULL,
+    estado varchar(30) NOT NULL,
+    fecha_hora timestamptz DEFAULT now() NOT NULL,
+    fecha_registro timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE TABLE transaccion_pago (
+    id_transaccion integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_venta integer NOT NULL,
+    metodo_pago varchar(30),
+    monto numeric(12,2) NOT NULL,
+    fecha_hora timestamptz DEFAULT now() NOT NULL,
+    estado varchar(30) NOT NULL,
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT ck_transaccion_pago_1 CHECK (monto >= 0),
+    CONSTRAINT ck_transaccion_pago_2 CHECK (metodo_pago IN ('EFECTIVO', 'TARJETA', 'TRANSFERENCIA', 'YAPE', 'PLIN'))
+);
+
+CREATE TABLE movimiento_inventario (
+    id_movimiento integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_producto integer NOT NULL,
+    id_venta integer,
+    tipo varchar(30),
+    cantidad integer NOT NULL,
+    fecha_hora timestamptz DEFAULT now() NOT NULL,
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT ck_movimiento_inventario_1 CHECK (tipo IN ('ENTRADA', 'SALIDA', 'AJUSTE'))
+);
+
+CREATE TABLE historial_precio (
+    id_historial_precio integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_producto integer NOT NULL,
+    precio numeric(12,2) NOT NULL,
+    fecha_inicio_vigencia date,
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT ck_historial_precio_1 CHECK (precio >= 0)
+);
+
+
+
+-- MODULO 5: Talento Humano
+CREATE TABLE area (
+    id_area integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_area_padre integer,
+    nombre varchar(120) NOT NULL,
+    estado varchar(30) NOT NULL,
+    fecha_registro timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE TABLE cargo (
+    id_cargo integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nombre varchar(120) NOT NULL,
+    descripcion text,
+    sueldo_base_referencial numeric(12,2),
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT ck_cargo_1 CHECK (sueldo_base_referencial >= 0)
+);
+
+CREATE TABLE empleado (
+    id_empleado integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_persona integer NOT NULL,
+    codigo_empleado varchar(30),
+    fecha_ingreso date,
+    fecha_cese date,
+    estado varchar(30) NOT NULL,
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT uq_empleado_codigo_empleado UNIQUE (codigo_empleado),
+    CONSTRAINT uq_empleado_id_persona UNIQUE (id_persona)
+);
+
+CREATE TABLE contrato (
+    id_contrato integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_empleado integer NOT NULL,
+    id_cargo integer NOT NULL,
+    id_area integer NOT NULL,
+    tipo_contrato varchar(30),
+    fecha_inicio date NOT NULL,
+    fecha_fin date,
+    jornada_semanal_horas smallint,
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT ck_contrato_1 CHECK (tipo_contrato IN ('PLAZO_FIJO', 'INDEFINIDO', 'LOCACION', 'PRACTICAS')),
+    CONSTRAINT ck_contrato_2 CHECK (fecha_fin IS NULL OR fecha_fin >= fecha_inicio),
+    CONSTRAINT ck_contrato_3 CHECK (jornada_semanal_horas > 0)
+);
+
+CREATE TABLE horario_trabajo (
+    id_horario integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_contrato integer NOT NULL,
+    dia_semana smallint,
+    hora_inicio time,
+    hora_fin time,
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT ck_horario_trabajo_1 CHECK (dia_semana BETWEEN 1 AND 7),
+    CONSTRAINT ck_horario_trabajo_2 CHECK (hora_fin > hora_inicio)
+);
+
+CREATE TABLE historial_salarial (
+    id_historial integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_contrato integer NOT NULL,
+    monto_remuneracion numeric(12,2),
+    fecha_inicio_vigencia date,
+    motivo varchar(30),
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT ck_historial_salarial_1 CHECK (monto_remuneracion >= 0)
+);
+
+
+
+-- MODULO 6: Seguridad, Usuarios y Accesos
+CREATE TABLE usuario (
+    id_usuario integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_persona integer NOT NULL,
+    nombre_usuario varchar(50) NOT NULL,
+    correo_acceso varchar(120),
+    contrasena_hash varchar(255) NOT NULL,
+    estado varchar(30) NOT NULL,
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT uq_usuario_nombre_usuario UNIQUE (nombre_usuario),
+    CONSTRAINT uq_usuario_id_persona UNIQUE (id_persona),
+    CONSTRAINT ck_usuario_1 CHECK (correo_acceso ~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$')
+);
+
+CREATE TABLE rol (
+    id_rol integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nombre varchar(120) NOT NULL,
+    ambito_rol varchar(30),
+    descripcion text,
+    estado varchar(30) NOT NULL,
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT ck_rol_1 CHECK (ambito_rol IN ('INTERNO', 'WEB'))
+);
+
+CREATE TABLE permiso (
+    id_permiso integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    codigo varchar(30),
+    nombre varchar(120) NOT NULL,
+    modulo varchar(120),
+    estado varchar(30) NOT NULL,
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT uq_permiso_codigo UNIQUE (codigo)
+);
+
+CREATE TABLE usuario_rol (
+    id_usuario integer NOT NULL,
+    id_rol integer NOT NULL,
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT pk_usuario_rol PRIMARY KEY (id_usuario, id_rol)
+);
+
+CREATE TABLE rol_permiso (
+    id_rol integer NOT NULL,
+    id_permiso integer NOT NULL,
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT pk_rol_permiso PRIMARY KEY (id_rol, id_permiso)
+);
+
+CREATE TABLE sesion (
+    id_sesion integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_usuario integer NOT NULL,
+    token_hash varchar(128) NOT NULL,
+    fecha_hora_inicio timestamptz NOT NULL,
+    fecha_hora_expiracion timestamptz,
+    origen varchar(30),
+    estado varchar(30) NOT NULL,
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT uq_sesion_token_hash UNIQUE (token_hash),
+    CONSTRAINT ck_sesion_1 CHECK (origen IN ('BACKOFFICE', 'FRONTOFFICE'))
+);
