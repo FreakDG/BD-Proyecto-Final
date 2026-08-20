@@ -1,4 +1,3 @@
-
 BEGIN;
 
 CREATE EXTENSION IF NOT EXISTS btree_gist;
@@ -13,7 +12,7 @@ SET search_path TO fongal, public;
 CREATE TABLE persona (
     id_persona integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     tipo_persona char(1) NOT NULL,
-    tipo_documento varchar(120),
+    tipo_documento varchar(120) NOT NULL, 
     numero_documento varchar(20) NOT NULL,
     correo varchar(120),
     telefono varchar(20),
@@ -83,14 +82,16 @@ CREATE TABLE aporte (
 CREATE TABLE departamento (
     id_departamento integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nombre varchar(120) NOT NULL,
-    fecha_registro timestamptz NOT NULL DEFAULT now()
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT uq_departamento_nombre UNIQUE (nombre) -- (c4)
 );
 
 CREATE TABLE provincia (
     id_provincia integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     id_departamento integer NOT NULL,
     nombre varchar(120) NOT NULL,
-    fecha_registro timestamptz NOT NULL DEFAULT now()
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT uq_provincia_id_departamento_nombre UNIQUE (id_departamento, nombre) -- (c4)
 );
 
 CREATE TABLE distrito (
@@ -127,7 +128,8 @@ CREATE TABLE raza (
     id_especie integer NOT NULL,
     nombre varchar(120) NOT NULL,
     origen varchar(30),
-    fecha_registro timestamptz NOT NULL DEFAULT now()
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT uq_raza_id_especie_nombre UNIQUE (id_especie, nombre) -- (c4)
 );
 
 CREATE TABLE categoria_animal (
@@ -138,6 +140,7 @@ CREATE TABLE categoria_animal (
     edad_max_meses smallint,
     sexo_aplicable char(1),
     fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT uq_categoria_animal_id_especie_nombre UNIQUE (id_especie, nombre), -- (c4)
     CONSTRAINT ck_categoria_animal_1 CHECK (sexo_aplicable IN ('M','F','A')),
     CONSTRAINT ck_categoria_animal_2 CHECK (edad_max_meses IS NULL OR edad_min_meses IS NULL OR edad_max_meses > edad_min_meses)
 );
@@ -153,9 +156,11 @@ CREATE TABLE establo (
     CONSTRAINT ck_establo_1 CHECK (area_hectareas >= 0)
 );
 
+-- animal: sin id_socio (correccion aplicada, ver punto B2 del encabezado).
+-- El socio dueno del animal se obtiene con:
+--   SELECT a.*, e.id_socio FROM animal a JOIN establo e ON a.id_establo = e.id_establo
 CREATE TABLE animal (
     id_animal integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    id_socio integer NOT NULL,
     id_raza integer NOT NULL,
     id_establo integer NOT NULL,
     codigo_arete varchar(30) NOT NULL,
@@ -168,6 +173,8 @@ CREATE TABLE animal (
     CONSTRAINT ck_animal_1 CHECK (sexo IN ('M','F'))
 );
 
+-- Pendiente documentado: no se valida aqui que id_padre sea sexo 'M'
+-- y id_madre sexo 'F' (se resolvera con trigger en el Cap. 6).
 CREATE TABLE registro_genealogico (
     id_registro integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     id_animal integer NOT NULL,
@@ -196,7 +203,8 @@ CREATE TABLE tipo_evento (
     id_tipo_evento integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nombre varchar(120) NOT NULL,
     descripcion text,
-    fecha_registro timestamptz NOT NULL DEFAULT now()
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT uq_tipo_evento_nombre UNIQUE (nombre) -- (c4)
 );
 
 CREATE TABLE evento (
@@ -211,6 +219,7 @@ CREATE TABLE evento (
     aforo_maximo integer,
     estado varchar(30) NOT NULL,
     fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT uq_evento_nombre_fecha_inicio UNIQUE (nombre, fecha_inicio), -- (c4)
     CONSTRAINT ck_evento_1 CHECK (fecha_fin IS NULL OR fecha_fin >= fecha_inicio),
     CONSTRAINT ck_evento_2 CHECK (aforo_maximo IS NULL OR aforo_maximo > 0)
 );
@@ -235,6 +244,7 @@ CREATE TABLE criterio_evaluacion (
     puntaje_maximo numeric(5,2),
     orden smallint,
     fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT uq_criterio_evaluacion_id_concurso_nombre UNIQUE (id_concurso, nombre), -- (c4)
     CONSTRAINT ck_criterio_evaluacion_1 CHECK (peso >= 0),
     CONSTRAINT ck_criterio_evaluacion_2 CHECK (puntaje_maximo >= 0),
     CONSTRAINT ck_criterio_evaluacion_3 CHECK (peso >= 0 AND peso <= 100)
@@ -350,6 +360,8 @@ CREATE TABLE auspicio (
     CONSTRAINT ck_auspicio_1 CHECK (monto >= 0)
 );
 
+-- Pendiente documentado: id_evento aqui deberia coincidir con
+-- venta.id_evento de la venta referenciada; sin CHECK/trigger todavia.
 CREATE TABLE entrada_emitida (
     id_entrada integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     id_venta integer NOT NULL,
@@ -369,6 +381,9 @@ CREATE TABLE categoria_producto (
     fecha_registro timestamptz NOT NULL DEFAULT now()
 );
 
+-- precio_unitario y stock_actual son valores vigentes cacheados desde
+-- historial_precio y movimiento_inventario respectivamente (denormalizacion
+-- intencional por rendimiento, igual que en el script original).
 CREATE TABLE producto (
     id_producto integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     id_categoria_producto integer NOT NULL,
@@ -392,7 +407,8 @@ CREATE TABLE tipo_comprobante (
     codigo_sunat varchar(4) NOT NULL,
     nombre varchar(120) NOT NULL,
     requiere_ruc boolean DEFAULT false,
-    fecha_registro timestamptz NOT NULL DEFAULT now()
+    fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT uq_tipo_comprobante_codigo_sunat UNIQUE (codigo_sunat) -- (c3)
 );
 
 CREATE TABLE venta (
@@ -517,6 +533,7 @@ CREATE TABLE cargo (
     descripcion text,
     sueldo_base_referencial numeric(12,2),
     fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT uq_cargo_nombre UNIQUE (nombre), -- (c4)
     CONSTRAINT ck_cargo_1 CHECK (sueldo_base_referencial >= 0)
 );
 
@@ -591,12 +608,13 @@ CREATE TABLE rol (
     descripcion text,
     estado varchar(30) NOT NULL,
     fecha_registro timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT uq_rol_nombre UNIQUE (nombre), -- (c4)
     CONSTRAINT ck_rol_1 CHECK (ambito_rol IN ('INTERNO', 'WEB'))
 );
 
 CREATE TABLE permiso (
     id_permiso integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    codigo varchar(30),
+    codigo varchar(30) NOT NULL, -- (c2) antes nullable
     nombre varchar(120) NOT NULL,
     modulo varchar(120),
     estado varchar(30) NOT NULL,
@@ -643,7 +661,6 @@ ALTER TABLE raza ADD CONSTRAINT fk_raza_id_especie FOREIGN KEY (id_especie) REFE
 ALTER TABLE categoria_animal ADD CONSTRAINT fk_categoria_animal_id_especie FOREIGN KEY (id_especie) REFERENCES especie (id_especie) ON UPDATE CASCADE ON DELETE RESTRICT;
 ALTER TABLE establo ADD CONSTRAINT fk_establo_id_socio FOREIGN KEY (id_socio) REFERENCES socio (id_socio) ON UPDATE CASCADE ON DELETE RESTRICT;
 ALTER TABLE establo ADD CONSTRAINT fk_establo_id_distrito FOREIGN KEY (id_distrito) REFERENCES distrito (id_distrito) ON UPDATE CASCADE ON DELETE RESTRICT;
-ALTER TABLE animal ADD CONSTRAINT fk_animal_id_socio FOREIGN KEY (id_socio) REFERENCES socio (id_socio) ON UPDATE CASCADE ON DELETE RESTRICT;
 ALTER TABLE animal ADD CONSTRAINT fk_animal_id_raza FOREIGN KEY (id_raza) REFERENCES raza (id_raza) ON UPDATE CASCADE ON DELETE RESTRICT;
 ALTER TABLE animal ADD CONSTRAINT fk_animal_id_establo FOREIGN KEY (id_establo) REFERENCES establo (id_establo) ON UPDATE CASCADE ON DELETE RESTRICT;
 ALTER TABLE registro_genealogico ADD CONSTRAINT fk_registro_genealogico_id_animal FOREIGN KEY (id_animal) REFERENCES animal (id_animal) ON UPDATE CASCADE ON DELETE RESTRICT;
@@ -684,10 +701,10 @@ ALTER TABLE venta ADD CONSTRAINT fk_venta_id_persona_cliente FOREIGN KEY (id_per
 ALTER TABLE venta ADD CONSTRAINT fk_venta_id_empleado_vendedor FOREIGN KEY (id_empleado_vendedor) REFERENCES empleado (id_empleado) ON UPDATE CASCADE ON DELETE RESTRICT;
 ALTER TABLE venta ADD CONSTRAINT fk_venta_id_evento FOREIGN KEY (id_evento) REFERENCES evento (id_evento) ON UPDATE CASCADE ON DELETE RESTRICT;
 ALTER TABLE detalle_venta ADD CONSTRAINT fk_detalle_venta_id_venta FOREIGN KEY (id_venta) REFERENCES venta (id_venta) ON UPDATE CASCADE ON DELETE CASCADE;
-ALTER TABLE detalle_venta ADD CONSTRAINT fk_detalle_venta_id_producto FOREIGN KEY (id_producto) REFERENCES producto (id_producto) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE detalle_venta ADD CONSTRAINT fk_detalle_venta_id_producto FOREIGN KEY (id_producto) REFERENCES producto (id_producto) ON UPDATE CASCADE ON DELETE RESTRICT;
 ALTER TABLE carrito ADD CONSTRAINT fk_carrito_id_usuario FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON UPDATE CASCADE ON DELETE RESTRICT;
 ALTER TABLE carrito ADD CONSTRAINT fk_carrito_id_venta_generada FOREIGN KEY (id_venta_generada) REFERENCES venta (id_venta) ON UPDATE CASCADE ON DELETE RESTRICT;
-ALTER TABLE detalle_carrito ADD CONSTRAINT fk_detalle_carrito_id_producto FOREIGN KEY (id_producto) REFERENCES producto (id_producto) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE detalle_carrito ADD CONSTRAINT fk_detalle_carrito_id_producto FOREIGN KEY (id_producto) REFERENCES producto (id_producto) ON UPDATE CASCADE ON DELETE RESTRICT;
 ALTER TABLE direccion_envio ADD CONSTRAINT fk_direccion_envio_id_venta FOREIGN KEY (id_venta) REFERENCES venta (id_venta) ON UPDATE CASCADE ON DELETE RESTRICT;
 ALTER TABLE direccion_envio ADD CONSTRAINT fk_direccion_envio_id_distrito FOREIGN KEY (id_distrito) REFERENCES distrito (id_distrito) ON UPDATE CASCADE ON DELETE RESTRICT;
 ALTER TABLE estado_pedido ADD CONSTRAINT fk_estado_pedido_id_venta FOREIGN KEY (id_venta) REFERENCES venta (id_venta) ON UPDATE CASCADE ON DELETE RESTRICT;
@@ -712,7 +729,7 @@ ALTER TABLE sesion ADD CONSTRAINT fk_sesion_id_usuario FOREIGN KEY (id_usuario) 
 ALTER TABLE persona_natural ADD CONSTRAINT fk_persona_natural_persona FOREIGN KEY (id_persona, tipo_persona) REFERENCES persona (id_persona, tipo_persona) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE persona_juridica ADD CONSTRAINT fk_persona_juridica_persona FOREIGN KEY (id_persona, tipo_persona) REFERENCES persona (id_persona, tipo_persona) ON UPDATE CASCADE ON DELETE CASCADE;
 
--- Indices sobre claves foraneas: 
+-- Indices sobre claves foraneas:
 CREATE INDEX ix_socio_id_persona ON socio (id_persona);
 CREATE INDEX ix_socio_id_categoria_socio ON socio (id_categoria_socio);
 CREATE INDEX ix_aporte_id_socio ON aporte (id_socio);
@@ -724,7 +741,6 @@ CREATE INDEX ix_raza_id_especie ON raza (id_especie);
 CREATE INDEX ix_categoria_animal_id_especie ON categoria_animal (id_especie);
 CREATE INDEX ix_establo_id_socio ON establo (id_socio);
 CREATE INDEX ix_establo_id_distrito ON establo (id_distrito);
-CREATE INDEX ix_animal_id_socio ON animal (id_socio);
 CREATE INDEX ix_animal_id_raza ON animal (id_raza);
 CREATE INDEX ix_animal_id_establo ON animal (id_establo);
 CREATE INDEX ix_registro_genealogico_id_animal ON registro_genealogico (id_animal);
@@ -784,12 +800,13 @@ CREATE INDEX ix_usuario_rol_id_rol ON usuario_rol (id_rol);
 CREATE INDEX ix_rol_permiso_id_permiso ON rol_permiso (id_permiso);
 CREATE INDEX ix_sesion_id_usuario ON sesion (id_usuario);
 
-
--- Indices unicos parciales (reglas 'a lo sumo uno')
 CREATE UNIQUE INDEX uq_direccion_principal ON direccion (id_persona) WHERE es_principal;
 CREATE UNIQUE INDEX uq_carrito_activo ON carrito (id_usuario) WHERE estado = 'ACTIVO';
+CREATE UNIQUE INDEX uq_area_padre_nombre ON area (id_area_padre, nombre) WHERE id_area_padre IS NOT NULL;
+CREATE UNIQUE INDEX uq_area_nombre_raiz ON area (nombre) WHERE id_area_padre IS NULL;
+CREATE UNIQUE INDEX uq_premio_concurso_posicion ON premio (id_concurso, posicion) WHERE posicion IS NOT NULL;
 
--- No-solapamiento temporal (EXCLUDE con btree_gist)
+
 ALTER TABLE asignacion_stand ADD CONSTRAINT ex_asignacion_stand_no_overlap EXCLUDE USING gist (id_stand WITH =, daterange(fecha_inicio, COALESCE(fecha_fin, 'infinity'::date), '[]') WITH &&);
 ALTER TABLE contrato ADD CONSTRAINT ex_contrato_no_overlap EXCLUDE USING gist (id_empleado WITH =, daterange(fecha_inicio, COALESCE(fecha_fin, 'infinity'::date), '[]') WITH &&);
 
