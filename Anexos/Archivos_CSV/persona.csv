@@ -1,0 +1,106 @@
+N;Documento Nacional de Identidad;12345678;juan.garcia@email.com;987654321;ACTIVO;2026-06-19 02:51:56.400;Juan Carlos;García;López;1985-03-15;Juan Carlos García López;NULL
+N;Documento Nacional de Identidad;87654321;maria.rodriguez@email.com;912345678;ACTIVO;2026-06-19 02:51:56.400;María Fernanda;Rodríguez;Martínez;1990-07-22;María Fernanda Rodríguez Martínez;NULL
+N;Documento Nacional de Identidad;45678912;carlos.mendoza@email.com;998877665;ACTIVO;2026-06-19 02:51:56.400;Carlos Alberto;Mendoza;Silva;1978-11-08;Carlos Alberto Mendoza Silva;NULL
+N;Documento Nacional de Identidad;78912345;ana.torres@email.com;945612378;ACTIVO;2026-06-19 02:51:56.400;Ana Lucía;Torres;Vargas;1995-02-14;Ana Lucía Torres Vargas;NULL
+N;Documento Nacional de Identidad;32165498;roberto.ramirez@email.com;967812345;ACTIVO;2026-06-19 02:51:56.400;Roberto José;Ramírez;Castillo;1982-09-30;Roberto José Ramírez Castillo;NULL
+N;Documento Nacional de Identidad;65498732;luisa.herrera@email.com;923456789;ACTIVO;2026-06-19 02:51:56.400;Luisa María;Herrera;Rojas;1988-05-19;Luisa María Herrera Rojas;NULL
+N;Documento Nacional de Identidad;98732165;pedro.sanchez@email.com;956789123;ACTIVO;2026-06-19 02:51:56.400;Pedro Pablo;Sánchez;Morales;1975-12-25;Pedro Pablo Sánchez Morales;NULL
+N;Documento Nacional de Identidad;15975346;carmen.diaz@email.com;934567891;ACTIVO;2026-06-19 02:51:56.400;Carmen Rosa;Díaz;Flores;1993-04-07;Carmen Rosa Díaz Flores;NULL
+N;Documento Nacional de Identidad;75315948;miguel.vega@email.com;978912345;ACTIVO;2026-06-19 02:51:56.400;Miguel Ángel;Vega;Gutiérrez;1980-08-11;Miguel Ángel Vega Gutiérrez;NULL
+N;Documento Nacional de Identidad;48261597;sofia.castro@email.com;945678123;ACTIVO;2026-06-19 02:51:56.400;Sofía Isabel;Castro;Ramos;1998-01-28;Sofía Isabel Castro Ramos;NULL
+N;Carnet de Extranjería;X12345678;diego.vargas@email.com;912345987;ACTIVO;2026-06-19 02:51:56.400;Diego Armando;Vargas;Salazar;1992-06-17;Diego Armando Vargas Salazar;NULL
+N;Carnet de Extranjería;Y87654321;valentina.morales@email.com;987654123;ACTIVO;2026-06-19 02:51:56.400;Valentina;Morales;Paredes;1987-10-03;Valentina Morales Paredes;NULL
+N;Carnet de Extranjería;Z98765432;andres.guerrero@email.com;956789456;ACTIVO;2026-06-19 02:51:56.400;Andrés Felipe;Guerrero;Mendoza;1994-03-21;Andrés Felipe Guerrero Mendoza;NULL
+N;Pasaporte;AB1234567;isabella.rojas@email.com;923456789;ACTIVO;2026-06-19 02:51:56.400;Isabella;Rojas;Torres;1983-07-14;Isabella Rojas Torres;NULL
+N;Pasaporte;CD9876543;santiago.mendoza@email.com;967891234;ACTIVO;2026-06-19 02:51:56.400;Santiago;Mendoza;Vargas;1991-11-29;Santiago Mendoza Vargas;NULL
+N;Pasaporte;EF4567891;camila.castillo@email.com;934567891;ACTIVO;2026-06-19 02:51:56.400;Camila;Castillo;Herrera;1986-02-08;Camila Castillo Herrera;NULL
+N;Cédula de Identidad;123456789;sebastian.ramos@email.com;978912345;ACTIVO;2026-06-19 02:51:56.400;Sebastián;Ramos;Díaz;1979-09-16;Sebastián Ramos Díaz;NULL
+N;Cédula de Identidad;987654321;mariana.salazar@email.com;945678123;ACTIVO;2026-06-19 02:51:56.400;Mariana;Salazar;Vega;1996-05-25;Mariana Salazar Vega;NULL
+N;Cédula de Identidad;456789123;nicolas.paredes@email.com;912345678;ACTIVO;2026-06-19 02:51:56.400;Nicolás;Paredes;Castro;1984-12-12;Nicolás Paredes Castro;NULL
+N;Partida de Nacimiento;12345-1990;daniela.gutierrez@email.com;987654321;ACTIVO;2026-06-19 02:51:56.400;Daniela;Gutiérrez;Sánchez;1990-04-03;Daniela Gutiérrez Sánchez;NULL
+N;Partida de Nacimiento;67890-1985;alejandro.flores@email.com;956789123;ACTIVO;2026-06-19 02:51:56.400;Alejandro;Flores;Morales;1988-08-27;Alejandro Flores Morales;NULL
+N;Documento de Identidad Extranjero;EXT123456;gabriela.rojas@email.com;923456789;ACTIVO;2026-06-19 02:51:56.400;Gabriela;Rojas;Torres;1976-01-19;Gabriela Rojas Torres;NULL
+N;Documento de Identidad Extranjero;EXT789012;martin.vargas@email.com;967891234;ACTIVO;2026-06-19 02:51:56.400;Martín;Vargas;Salazar;1993-06-09;Martín Vargas Salazar;NULL
+N;Carnet de Refugiado;REF456789;luciana.mendoza@email.com;934567891;ACTIVO;2026-06-19 02:51:56.400;Luciana;Mendoza;Vargas;1981-10-22;Luciana Mendoza Vargas;NULL
+N;Permiso Temporal de Permanencia;PTP123456;mateo.castillo@email.com;978912345;ACTIVO;2026-06-19 02:51:56.400;Mateo;Castillo;Herrera;1997-03-11;Mateo Castillo Herrera;NULL
+N;Documento Provisorio de Identidad;DPI789012;emilia.ramos@email.com;945678123;ACTIVO;2026-06-19 02:51:56.400;Emilia;Ramos;Díaz;1985-07-04;Emilia Ramos Díaz;NULL
+N;Carnet de Identidad Diplomática;DIP456789;benjamin.salazar@email.com;912345678;ACTIVO;2026-06-19 02:51:56.400;Benjamín;Salazar;Vega;1992-11-18;Benjamín Salazar Vega;NULL
+N;Documento Nacional de Identidad de Menor;98765432;victoria.paredes@email.com;987654321;ACTIVO;2026-06-19 02:51:56.400;Victoria;Paredes;Castro;1977-02-28;Victoria Paredes Castro;NULL
+N;Cédula de Identidad de Policía;POL123456;joaquin.gutierrez@email.com;956789123;ACTIVO;2026-06-19 02:51:56.400;Joaquín;Gutiérrez;Sánchez;1994-09-07;Joaquín Gutiérrez Sánchez;NULL
+N;Documento de Identificación Militar;MIL789012;renata.flores@email.com;923456789;ACTIVO;2026-06-19 02:51:56.400;Renata;Flores;Morales;1989-05-15;Renata Flores Morales;NULL
+N;Libreta de Servicio Militar;12345678;thiago.rojas@email.com;967891234;ACTIVO;2026-06-19 02:51:56.400;Thiago;Rojas;Torres;1982-12-03;Thiago Rojas Torres;NULL
+N;Documento Nacional de Identidad;24681357;antonella.vargas@email.com;934567891;ACTIVO;2026-06-19 02:51:56.400;Antonella;Vargas;Salazar;1995-08-20;Antonella Vargas Salazar;NULL
+N;Documento Nacional de Identidad;13579246;jeronimo.mendoza@email.com;978912345;ACTIVO;2026-06-19 02:51:56.400;Jerónimo;Mendoza;Vargas;1986-04-14;Jerónimo Mendoza Vargas;NULL
+N;Documento Nacional de Identidad;97531864;mia.castillo@email.com;945678123;ACTIVO;2026-06-19 02:51:56.400;Mía;Castillo;Herrera;1991-10-09;Mía Castillo Herrera;NULL
+N;Documento Nacional de Identidad;86429753;felipe.ramos@email.com;912345678;ACTIVO;2026-06-19 02:51:56.400;Felipe;Ramos;Díaz;1980-06-26;Felipe Ramos Díaz;NULL
+J;Registro Único de Contribuyentes;20123456789;contacto@garciainversiones.com;01-2345678;ACTIVO;2026-06-19 02:51:56.400;NULL;NULL;NULL;NULL;INVERSIONES GARCÍA SAC;García Inversiones
+J;Registro Único de Contribuyentes;20987654321;ventas@rodriguezcomercial.com;01-8765432;ACTIVO;2026-06-19 02:51:56.400;NULL;NULL;NULL;NULL;COMERCIALIZADORA RODRÍGUEZ EIRL;Rodríguez Comercial
+J;Registro Único de Contribuyentes;20456789123;info@mendozaconstructores.com;01-4567891;ACTIVO;2026-06-19 02:51:56.400;NULL;NULL;NULL;NULL;CONSTRUCTORA MENDOZA SA;Mendoza Constructores
+J;Registro Único de Contribuyentes;20789123456;soporte@torrestech.com;01-7891234;ACTIVO;2026-06-19 02:51:56.400;NULL;NULL;NULL;NULL;TECNOLOGÍA TORRES SRL;Torres Tech
+J;Registro Único de Contribuyentes;20321654987;compras@ramiimport.com;01-3216549;ACTIVO;2026-06-19 02:51:56.400;NULL;NULL;NULL;NULL;IMPORTADORA RAMÍGUEZ SAC;Rami Import
+J;Registro Único de Contribuyentes;20654987321;logistica@herreradistribuciones.com;01-6549873;ACTIVO;2026-06-19 02:51:56.400;NULL;NULL;NULL;NULL;DISTRIBUIDORA HERRERA EIRL;Herrera Distribuciones
+J;Registro Único de Contribuyentes;20987321654;admin@sanchezservicios.com;01-9873216;ACTIVO;2026-06-19 02:51:56.400;NULL;NULL;NULL;NULL;SERVICIOS SÁNCHEZ SA;Sánchez Servicios
+J;Registro Único de Contribuyentes;20159753468;operaciones@diaztransport.com;01-1597534;ACTIVO;2026-06-19 02:51:56.400;NULL;NULL;NULL;NULL;TRANSPORTES DÍAZ SRL;Díaz Transport
+J;Registro Único de Contribuyentes;20753159482;ventas@vegaagro.com;01-7531594;ACTIVO;2026-06-19 02:51:56.400;NULL;NULL;NULL;NULL;AGROINDUSTRIAL VEGA SAC;Vega Agro
+J;Registro Único de Contribuyentes;20482615973;produccion@castrotextiles.com;01-4826159;ACTIVO;2026-06-19 02:51:56.400;NULL;NULL;NULL;NULL;TEXTIL CASTRO EIRL;Castro Textiles
+J;Registro Único de Contribuyentes;15123456789;operaciones@vargasmining.com;01-1234567;ACTIVO;2026-06-19 02:51:56.400;NULL;NULL;NULL;NULL;MINERA VARGAS SA;Vargas Mining
+J;Registro Único de Contribuyentes;15987654321;reservas@moralesgourmet.com;01-9876543;ACTIVO;2026-06-19 02:51:56.400;NULL;NULL;NULL;NULL;RESTAURANTE MORALES SRL;Morales Gourmet
+J;Registro Único de Contribuyentes;15456789123;reservas@rojashotels.com;01-4567891;ACTIVO;2026-06-19 02:51:56.400;NULL;NULL;NULL;NULL;HOTELERA ROJAS SAC;Rojas Hotels
+J;Registro Único de Contribuyentes;15789123456;distribucion@torrespharma.com;01-7891234;ACTIVO;2026-06-19 02:51:56.400;NULL;NULL;NULL;NULL;FARMACÉUTICA TORRES EIRL;Torres Pharma
+J;Registro Único de Contribuyentes;15321654987;clientes@ramirezlogistics.com;01-3216549;ACTIVO;2026-06-19 02:51:56.400;NULL;NULL;NULL;NULL;LOGÍSTICA RAMÍREZ SA;Ramírez Logistics
+N;Documento Nacional de Identidad;47583920;ricardo.villanueva@email.com;987123456;ACTIVO;2026-06-19 02:56:39.020;Ricardo;Villanueva;Paredes;NULL;Ricardo Villanueva Paredes;NULL
+N;Documento Nacional de Identidad;58392047;patricia.huaman@email.com;976543210;ACTIVO;2026-06-19 02:56:39.020;Patricia;Huamán;Quispe;NULL;Patricia Huamán Quispe;NULL
+N;Documento Nacional de Identidad;69204758;fernando.chavez@email.com;965432109;ACTIVO;2026-06-19 02:56:39.020;Fernando;Chávez;Ríos;NULL;Fernando Chávez Ríos;NULL
+N;Documento Nacional de Identidad;70475839;gloria.espinoza@email.com;954321098;ACTIVO;2026-06-19 02:56:39.020;Gloria;Espinoza;Medina;NULL;Gloria Espinoza Medina;NULL
+N;Documento Nacional de Identidad;81583920;hector.zambrano@email.com;943210987;ACTIVO;2026-06-19 02:56:39.020;Héctor;Zambrano;Córdova;NULL;Héctor Zambrano Córdova;NULL
+N;Documento Nacional de Identidad;92047583;irene.pacheco@email.com;932109876;ACTIVO;2026-06-19 02:56:39.020;Irene;Pacheco;Salinas;NULL;Irene Pacheco Salinas;NULL
+N;Carnet de Extranjería;A98765432;javier.ocampo@email.com;921098765;ACTIVO;2026-06-19 02:56:39.020;Javier;Ocampo;Delgado;NULL;Javier Ocampo Delgado;NULL
+N;Carnet de Extranjería;B87654321;karla.mestas@email.com;910987654;ACTIVO;2026-06-19 02:56:39.020;Karla;Mestas;Vega;NULL;Karla Mestas Vega;NULL
+N;Carnet de Extranjería;C76543210;leonardo.tapia@email.com;909876543;ACTIVO;2026-06-19 02:56:39.020;Leonardo;Tapia;Contreras;NULL;Leonardo Tapia Contreras;NULL
+N;Pasaporte;GH3456789;monica.alvarado@email.com;898765432;ACTIVO;2026-06-19 02:56:39.020;Mónica;Alvarado;Ponce;NULL;Mónica Alvarado Ponce;NULL
+N;Pasaporte;IJ9876543;nestor.bravo@email.com;887654321;ACTIVO;2026-06-19 02:56:39.020;Néstor;Bravo;León;NULL;Néstor Bravo León;NULL
+N;Pasaporte;KL4567891;olivia.campos@email.com;876543210;ACTIVO;2026-06-19 02:56:39.020;Olivia;Campos;Soto;NULL;Olivia Campos Soto;NULL
+N;Cédula de Identidad;876543210;quetzalli.estrada@email.com;854321098;ACTIVO;2026-06-19 02:56:39.020;Quetzalli;Estrada;Núñez;NULL;Quetzalli Estrada Núñez;NULL
+N;Cédula de Identidad;765432109;raul.figueroa@email.com;843210987;ACTIVO;2026-06-19 02:56:39.020;Raúl;Figueroa;Aguilar;1987-03-18;Raúl Figueroa Aguilar;NULL
+N;Partida de Nacimiento;23456-1992;silvia.galvez@email.com;832109876;ACTIVO;2026-06-19 02:56:39.020;Silvia;Gálvez;Cano;1993-09-25;Silvia Gálvez Cano;NULL
+N;Partida de Nacimiento;78901-1988;tomas.hidalgo@email.com;821098765;ACTIVO;2026-06-19 02:56:39.020;Tomás;Hidalgo;Orozco;1979-01-12;Tomás Hidalgo Orozco;NULL
+N;Documento de Identidad Extranjero;EXT987654;ursula.ibarra@email.com;810987654;ACTIVO;2026-06-19 02:56:39.020;Úrsula;Ibarra;Peña;1996-07-08;Úrsula Ibarra Peña;NULL
+N;Documento de Identidad Extranjero;EXT543210;victor.jaramillo@email.com;809876543;ACTIVO;2026-06-19 02:56:39.020;Víctor;Jaramillo;Serrano;1984-11-30;Víctor Jaramillo Serrano;NULL
+N;Carnet de Refugiado;REF987654;wendy.kohan@email.com;798765432;ACTIVO;2026-06-19 02:56:39.020;Wendy;Kohan;Vargas;1990-05-22;Wendy Kohan Vargas;NULL
+N;Permiso Temporal de Permanencia;PTP987654;xavier.luna@email.com;787654321;ACTIVO;2026-06-19 02:56:39.020;Xavier;Luna;Acosta;1976-08-14;Xavier Luna Acosta;NULL
+N;Documento Provisorio de Identidad;DPI987654;yolanda.marin@email.com;776543210;ACTIVO;2026-06-19 02:56:39.020;Yolanda;Marín;Cruz;1994-02-06;Yolanda Marín Cruz;NULL
+N;Carnet de Identidad Diplomática;DIP987654;zacarias.navarro@email.com;765432109;ACTIVO;2026-06-19 02:56:39.020;Zacarías;Navarro;Reyes;1988-12-19;Zacarías Navarro Reyes;NULL
+N;Documento Nacional de Identidad de Menor;12345678;adriana.ochoa@email.com;754321098;ACTIVO;2026-06-19 02:56:39.020;Adriana;Ochoa;Fuentes;1981-04-27;Adriana Ochoa Fuentes;NULL
+N;Cédula de Identidad de Policía;POL987654;bruno.palacios@email.com;743210987;ACTIVO;2026-06-19 02:56:39.020;Bruno;Palacios;Guerrero;1995-10-11;Bruno Palacios Guerrero;NULL
+N;Documento de Identificación Militar;MIL987654;claudia.quintero@email.com;732109876;ACTIVO;2026-06-19 02:56:39.020;Claudia;Quintero;Molina;1983-06-03;Claudia Quintero Molina;NULL
+N;Libreta de Servicio Militar;87654321;daniel.romero@email.com;721098765;ACTIVO;2026-06-19 02:56:39.020;Daniel;Romero;Vega;1992-09-15;Daniel Romero Vega;NULL
+N;Documento Nacional de Identidad;36475829;elena.suarez@email.com;710987654;ACTIVO;2026-06-19 02:56:39.020;Elena;Suárez;Castillo;1978-01-28;Elena Suárez Castillo;NULL
+N;Documento Nacional de Identidad;25364758;francisco.terrazas@email.com;709876543;ACTIVO;2026-06-19 02:56:39.020;Francisco;Terrazas;Mendoza;1997-05-20;Francisco Terrazas Mendoza;NULL
+N;Documento Nacional de Identidad;14253647;gabriela.urrutia@email.com;698765432;ACTIVO;2026-06-19 02:56:39.020;Gabriela;Urrutia;Santos;NULL;Gabriela Urrutia Santos;NULL
+J;Registro Único de Contribuyentes;20111222334;info@villanuevaagro.com;01-1112223;ACTIVO;2026-06-19 02:56:39.020;NULL;NULL;NULL;NULL;AGROEXPORTADORA VILLANUEVA SA;Villanueva Agro
+J;Registro Único de Contribuyentes;20222333445;proyectos@huamanbuilders.com;01-2223334;ACTIVO;2026-06-19 02:56:39.020;NULL;NULL;NULL;NULL;CONSTRUCTORA HUAMÁN EIRL;Huamán Builders
+J;Registro Único de Contribuyentes;20333444556;soporte@chaveztech.com;01-3334445;ACTIVO;2026-06-19 02:56:39.020;NULL;NULL;NULL;NULL;TECNOLOGÍA CHÁVEZ SAC;Chávez Tech Solutions
+J;Registro Único de Contribuyentes;20444555667;compras@espinozaimports.com;01-4445556;ACTIVO;2026-06-19 02:56:39.020;NULL;NULL;NULL;NULL;IMPORTADORA ESPINOZA SRL;Espinoza Imports
+J;Registro Único de Contribuyentes;20555666778;operaciones@zambranologistics.com;01-5556667;ACTIVO;2026-06-19 02:56:39.020;NULL;NULL;NULL;NULL;TRANSPORTES ZAMBRANO SA;Zambrano Logistics
+J;Registro Único de Contribuyentes;20666777889;operaciones@ocampomining.com;01-6667778;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;MINERA OCAMPO SA;Ocampo Mining Corp
+J;Registro Único de Contribuyentes;20777888990;reservas@davilagourmet.com;01-7778889;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;RESTAURANTE DÁVILA SAC;Dávila Gourmet
+J;Registro Único de Contribuyentes;20888999001;distribucion@estradapharma.com;01-8889990;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;FARMACÉUTICA ESTRADA EIRL;Estrada Pharma
+J;Registro Único de Contribuyentes;20999000112;clientes@figueroalogistics.com;01-9990001;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;LOGÍSTICA FIGUEROA SRL;Figueroa Logistics
+J;Registro Único de Contribuyentes;20101122334;ventas@galvezproperties.com;01-1011223;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;INMOBILIARIA GÁLVEZ SA;Gálvez Properties
+J;Registro Único de Contribuyentes;20212233445;info@hidalgoenergy.com;01-2122334;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;ENERGÍA HIDALGO SAC;Hidalgo Energy
+J;Registro Único de Contribuyentes;20323344556;compras@ibarratrading.com;01-3233445;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;COMERCIAL IBARRA EIRL;Ibarra Trading
+J;Registro Único de Contribuyentes;20434455667;reservas@jaramillotours.com;01-4344556;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;TURISMO JARAMILLO SA;Jaramillo Tours
+J;Registro Único de Contribuyentes;20545566778;pedidos@kohanfoods.com;01-5455667;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;ALIMENTOS KOHAN SRL;Kohan Foods
+J;Registro Único de Contribuyentes;20656677889;proyectos@lunaconstructora.com;01-6566778;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;CONSTRUCCIONES LUNA SAC;Luna Constructora
+J;Registro Único de Contribuyentes;20767788990;soporte@marintech.com;01-7677889;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;TECNOLOGÍA MARÍN EIRL;Marín Tech
+J;Registro Único de Contribuyentes;20878899001;export@navarroexport.com;01-8788990;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;EXPORTADORA NAVARRO SA;Navarro Export
+J;Registro Único de Contribuyentes;20989900112;clientes@ochoaservices.com;01-9899001;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;SERVICIOS OCHOA SRL;Ochoa Services
+J;Registro Único de Contribuyentes;20190011223;produccion@palaciosmetal.com;01-1900112;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;METALMECÁNICA PALACIOS SAC;Palacios Metal
+J;Registro Único de Contribuyentes;20201122334;laboratorio@quinterochemical.com;01-2011223;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;QUÍMICA QUINTERO EIRL;Quintero Chemical
+J;Registro Único de Contribuyentes;20312233445;ventas@romeromotors.com;01-3122334;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;AUTOMOTRIZ ROMERO SA;Romero Motors
+J;Registro Único de Contribuyentes;20423344556;proyectos@suarezdesign.com;01-4233445;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;DISEÑO SUÁREZ SRL;Suárez Design Studio
+J;Registro Único de Contribuyentes;20534455667;cosechas@terrazasagro.com;01-5344556;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;AGRICOLA TERRAZAS SAC;Terrazas Agro
+J;Registro Único de Contribuyentes;20645566778;campañas@urrutiamarketing.com;01-6455667;ACTIVO;2026-06-19 03:00:00.150;NULL;NULL;NULL;NULL;PUBLICIDAD URRUTIA EIRL;Urrutia Marketing
+N;Documento Nacional de Identidad;45751158;jllanosb@unc.edu.pe;956715390;ACTIVO;2026-06-19 16:17:20.347;Jaime;Llanos;Bardales;1989-06-09;Jaime Llanos Bardales;NULL
+N;Documento Nacional de Identidad;74230564;antonydavidgutty68@gmail.com;967352017;ACTIVO;2026-06-19 21:51:30.150;Antony David;Julcamoro;Gutty;2003-01-17;No Aplica;NULL
+N;Documento Nacional de Identidad;80011223;maria.torres@correo.com;951234567;ACTIVO;2026-07-25 23:17:16.717;Maria Elena;Torres;Vega;2001-03-10;No Aplica;NULL

@@ -1,0 +1,26 @@
+# Variables de entorno / credenciales - nunca subir valores reales
+.env
+.env.*
+!.env.example
+
+# Archivos de bloqueo de Word/Office (se crean mientras el archivo esta abierto)
+~$*.doc*
+~$*.xls*
+~$*.ppt*
+
+# Archivos de sistema operativo
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Carpetas de editor / IDE
+.vscode/
+.idea/
+
+# Residuos de procesamiento (no forman parte del entregable)
+*.pkl
+extracted_blocks.*
+
+# Backups
+*.bak
+*~
